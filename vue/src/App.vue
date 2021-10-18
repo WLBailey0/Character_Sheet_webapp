@@ -3,7 +3,7 @@
     <div id="nav">
       <router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;|&nbsp;
       <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>&nbsp;|&nbsp;
-      <router-link v-bind:to="{name: 'spellbook'}">Spell Book </router-link>
+      <router-link v-bind:to="{name: 'spellbook'}" v-if="this.$route.params.id != NAN">Spell Book </router-link>
        
     </div>
     <router-view />

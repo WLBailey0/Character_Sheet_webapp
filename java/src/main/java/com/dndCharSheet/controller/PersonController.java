@@ -37,4 +37,13 @@ public class PersonController {
     public void deleteCharacter(@PathVariable int id){
         personDao.deletePerson(id);
     }
+
+    @PutMapping("/character/up/{id}")
+    public void healthUp(@RequestBody @PathVariable int id){
+        personDao.healthUp(id);
+    }
+    @PutMapping("/character/down/{id}")
+    public void healthDown(@RequestBody @PathVariable int id){
+        personDao.healthDown(id);
+    }
 }

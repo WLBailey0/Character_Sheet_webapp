@@ -9,9 +9,10 @@ public class Spell {
     private int spellAmount;
     private boolean isCantrip;
     private boolean isUsable;
+    private boolean isAvailable;
 
 
-    public Spell(int spellId, int charId, String spellName,int spellLevel, String spellDice, int spellAmount, boolean isCantrip, boolean isUsable) {
+    public Spell(int spellId, int charId, String spellName,int spellLevel, String spellDice, int spellAmount, boolean isCantrip, boolean isUsable, boolean isAvailable) {
         this.spellId = spellId;
         this.charId = charId;
         this.spellName = spellName;
@@ -24,6 +25,14 @@ public class Spell {
 
     public Spell() {
 
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
     }
 
     public boolean isUsable() {

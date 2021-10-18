@@ -13,4 +13,8 @@ public interface PersonDao {
 
     void deletePerson(int id);
 
+    void healthUp(int id);
+
+    void healthDown(int id);
+
 }

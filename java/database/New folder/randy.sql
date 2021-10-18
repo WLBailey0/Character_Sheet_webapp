@@ -13,6 +13,7 @@ create table person
         person_id int,
         name varchar(64) not null,
         health int,
+        base_health int,
         initiative int,
         speed int,
         hit_dice varchar(64),
@@ -35,6 +36,7 @@ create table spells
         spell_amount int,
         is_cantrip boolean,
         is_usable boolean,
+        is_available boolean,
             
         constraint pk_spell_id primary key (spell_id),
         constraint fk_char_user foreign key (char_id) references users (user_id)

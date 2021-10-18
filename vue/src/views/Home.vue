@@ -7,7 +7,7 @@
     <div v-for="character in characters" :key="character.id">
       <router-link v-bind:to="{
         name: 'displayCharacter',
-        params: {id: character.id}}">
+        params: {id: character.charId}}">
         <strong>{{character.name}}</strong> {{character.charClass}} {{character.level}}
         </router-link>
 

@@ -10,4 +10,10 @@ export default{
     createCharacter(id, character){
         return axios.post(`/character/create/${id}`, character);
     },
+    healthUp(id){
+        return axios.put(`/character/up/${id}`);
+    },
+    healthDown(id){
+        return axios.put(`/character/down/${id}`);
+    },
 }

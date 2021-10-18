@@ -26,36 +26,6 @@ public class JdbcSpellDao implements SpellDao{
         }
         return spells;
     }
-
-    public Spell getSpell(int id){
-        Spell spell = new Spell();
-        String sql = "select * from spells where spell_id = ?";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
-        if(results.next()){
-            spell = mapSpellToRow(results);
-        }
-        return spell;
-    }
-    public void updateSpellAmount(Spell spell){
-        String sql = "update spells set spell_amount = ? where spell_id = ?";
-        jdbcTemplate.update(sql, spell.getSpellAmount(), spell.getSpellId());
-    }
-
-    @Override
-    public void deleteSpell(int id) {
-        String sql = "delete from spells where spell_id=?";
-        jdbcTemplate.update(sql, id);
-    }
-
-    @Override
-    public Spell createSpell(Spell spell) {
-        String sql = "insert into spells(char_id, spell_name, spell_level, spell_dice, is_cantrip, is_usable) " +
-                "values(?,?,?,?,?,?) returning spell_id";
-        Integer id = jdbcTemplate.queryForObject(sql, Integer.class,spell.getCharId(), spell.getSpellName(), spell.getSpellLevel(), spell.getSpellDice(), spell.isCantrip(), spell.isUsable());
-
-        return getSpell(id);
-    }
-
     @Override
     public List<Spell> getCantrip(int id) {
         List<Spell> cantrips = new ArrayList<>();
@@ -68,11 +38,74 @@ public class JdbcSpellDao implements SpellDao{
     }
 
     @Override
+    public List<Spell> availiableSpells(int id) {
+        List<Spell> spells = new ArrayList<>();
+        String sql = "select * from spells where char_id = ? and is_cantrip = false and is_available = true";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+        while(results.next()){
+            spells.add(mapSpellToRow(results));
+        }
+        return spells;
+    }
+
+
+    @Override
+    public List<Spell> availableCantrips(int id) {
+        List<Spell> cantrips = new ArrayList<>();
+        String sql = "Select * from spells where char_id = ? and is_cantrip = true and is_available = true";
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, id);
+        while(result.next()){
+            cantrips.add(mapSpellToRow(result));
+        }
+        return cantrips;
+    }
+
+    public Spell getSpell(int id){
+        Spell spell = new Spell();
+        String sql = "select * from spells where spell_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+        if(results.next()){
+            spell = mapSpellToRow(results);
+        }
+        return spell;
+    }
+    public void updateSpellAmount(Spell spell){
+        String sql = "update spells set spell_dice = ? where spell_id = ?";
+        jdbcTemplate.update(sql, spell.getSpellAmount(), spell.getSpellId());
+    }
+
+    @Override
+    public void deleteSpell(int id) {
+        String sql = "delete from spells where spell_id=?";
+        jdbcTemplate.update(sql, id);
+    }
+
+    @Override
+    public Spell createSpell(Spell spell) {
+        String sql = "insert into spells(char_id, spell_name, spell_level, " +
+                "spell_dice, is_cantrip, is_usable, is_available) " +
+                "values(?,?,?,?,?,?,?) returning spell_id";
+        Integer id = jdbcTemplate.queryForObject(sql, Integer.class,spell.getCharId(),
+                spell.getSpellName(), spell.getSpellLevel(), spell.getSpellDice(),
+                spell.isCantrip(), spell.isUsable(), false);
+
+        return getSpell(id);
+    }
+
+
+
+    @Override
     public void changeUsable(int id) {
         Spell spell = getSpell(id);
-
         String sql = "update spells set is_usable = ? where spell_id = ?";
-        jdbcTemplate.update(sql, spell.isUsable()? false : true,  id);
+        jdbcTemplate.update(sql, !spell.isUsable(),  id);
+    }
+
+    @Override
+    public void changeAvailable(int id) {
+        Spell spell = getSpell(id);
+        String sql = "update spells set is_available = ? where spell_id = ?";
+        jdbcTemplate.update(sql, !spell.isAvailable(), id);
     }
 
     private Spell mapSpellToRow(SqlRowSet results) {
@@ -85,6 +118,7 @@ public class JdbcSpellDao implements SpellDao{
         spell.setSpellDice(results.getString("spell_dice"));
         spell.setCantrip(results.getBoolean("is_cantrip"));
         spell.setUsable(results.getBoolean("is_usable"));
+        spell.setAvailable(results.getBoolean("is_available"));
         return spell;
     }
 }

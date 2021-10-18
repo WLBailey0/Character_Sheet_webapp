@@ -1,6 +1,5 @@
-package com.techelevator.dao;
+package com.dndCharSheet.dao;
 
-import com.dndCharSheet.dao.JdbcUserDao;
 import com.dndCharSheet.model.User;
 import org.junit.Assert;
 import org.junit.Before;

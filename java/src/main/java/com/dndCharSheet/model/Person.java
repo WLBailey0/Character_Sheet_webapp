@@ -5,6 +5,7 @@ public class Person {
     private int userId; // person_id
     private String name;
     private int health;
+    private int baseHealth;
     private int inititave;
     private int speed;
     private String hitDice;
@@ -16,12 +17,13 @@ public class Person {
     public Person() {
     }
 
-    public Person(int charId, int userId, String name, int health, int inititave,
+    public Person(int charId, int userId, String name, int health, int baseHealth, int inititave,
                   int speed, String hitDice, int armorClass, int proficiency, String charClass, int level) {
         this.charId = charId;
         this.userId = userId;
         this.name = name;
         this.health = health;
+        this.baseHealth = baseHealth;
         this.inititave = inititave;
         this.speed = speed;
         this.hitDice = hitDice;
@@ -29,6 +31,14 @@ public class Person {
         this.proficiency = proficiency;
         this.charClass = charClass;
         this.level = level;
+    }
+
+    public int getBaseHealth() {
+        return baseHealth;
+    }
+
+    public void setBaseHealth(int baseHealth) {
+        this.baseHealth = baseHealth;
     }
 
     public int getCharId() {

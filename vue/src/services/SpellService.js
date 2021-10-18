@@ -7,10 +7,19 @@ export default{
     getSpells(id){
         return axios.get(`/spells/${id}`);
     },
+    getAvailableCantrips(id){
+        return axios.get(`/spells/available/cantrips/${id}`);
+    },
+    getAvailableSpells(id){
+        return axios.get(`/spells/available/spells/${id}`);
+    },
     changeUsable(id){
         return axios.put(`/spells/usable/${id}`);
     },
     addSpell(id, spell){
-        return axios.post(`/spells/${id}`, spell)
+        return axios.post(`/spells/${id}`, spell);
+    },
+    changeAvailable(id){
+        return axios.put(`/spells/available/${id}`);
     }
 }

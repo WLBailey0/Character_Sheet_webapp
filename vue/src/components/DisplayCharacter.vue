@@ -14,6 +14,10 @@
       <h3>{{character.health}}</h3>
       <h4>{{character.speed}}</h4>
     </div>
+    <div class="btn">
+      <button v-on:click="healthUp()">+</button>
+      <button v-on:click="healthDown()" >-</button>
+    </div>
     <h3 class="spell">Cantrips</h3>
     <div class="spells" v-for="cantrip in cantrips" :key="cantrip.id">
       <h4>{{cantrip.spellName}}</h4>
@@ -23,7 +27,9 @@
     <div class="spells" v-for="spell in spells" :key="spell.id" :class="{'used': !spell.usable}">
       <h4>{{spell.spellName}}</h4>
       <h4>{{spell.spellDice}}</h4>
-      <h4>lvl: {{spell.spellLevel}} <input type="checkbox" name="checked" id="checked" :checked="spell.usable" v-on:click="check(spell.spellId)" v-model="spell.usable"></h4>
+      <h4>lvl: {{spell.spellLevel}} 
+        <input type="checkbox" name="checked" id="checked" :checked="spell.usable" v-on:click="check(spell.spellId)" v-model="spell.usable">
+      </h4>
       
     </div>
   </div>
@@ -35,8 +41,8 @@ import spellService from '../services/SpellService';
 export default {
   data(){
     return{
+     
       character: {
-        id: -1
       },
       cantrips: [],
       spells: [],
@@ -47,18 +53,27 @@ export default {
     characterService.getCharacter(this.character.id).then(result => {
       this.character = result.data;
     });
-    spellService.getSpells(this.character.id).then(result => {
+    spellService.getAvailableSpells(this.character.id).then(result => {
       this.spells = result.data;
     });
-    spellService.getCantrips(this.character.id).then(result => {
+    spellService.getAvailableCantrips(this.character.id).then(result => {
       this.cantrips = result.data;
     });
 
   },
   methods:{
     check(id){
-      console.log("BOM")
        spellService.changeUsable(id);
+    },
+    healthUp(){
+      characterService.healthUp(this.character.charId).then(
+        this.character.health += 1
+      );
+    },
+    healthDown(){
+      characterService.healthDown(this.character.charId).then(
+        this.character.health -= 1
+      );
     },
   },
 }
@@ -81,7 +96,8 @@ export default {
   display: flex;
   justify-content: center;
   border: 1px solid black;
-  width: 400px;
+  width: 200px;
+  height: 75px;
   margin: auto;
 }
 .spells > h4{
@@ -92,5 +108,9 @@ export default {
 }
 .used{
   background: red;
+}
+.btn{
+  display: flex;
+  justify-content: center;
 }
 </style>

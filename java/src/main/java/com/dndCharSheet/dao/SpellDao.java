@@ -7,6 +7,12 @@ import java.util.List;
 public interface SpellDao {
     List<Spell> listSpells(int id);
 
+    List<Spell> getCantrip(int id);
+
+    List<Spell> availiableSpells(int id);
+
+    List<Spell> availableCantrips(int id);
+
     Spell getSpell(int id);
 
     void updateSpellAmount(Spell spell);
@@ -15,9 +21,11 @@ public interface SpellDao {
 
     Spell createSpell(Spell spell);
 
-    List<Spell> getCantrip(int id);
-
     void changeUsable(int id);
+
+    void changeAvailable(int id);
+
+
 
 
 }

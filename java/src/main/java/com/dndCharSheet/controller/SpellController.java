@@ -24,9 +24,21 @@ public class SpellController {
     public List<Spell> getSpells(@PathVariable int id){
         return spellDao.listSpells(id);
     }
+    @GetMapping("/spells/available/spells/{id}")
+    public List<Spell> getAvailableSpells(@PathVariable int id){
+        return spellDao.availiableSpells(id);
+    }
+    @GetMapping("/spells/available/cantrips/{id}")
+    public List<Spell> getAvailableCantrip(@PathVariable int id){
+        return spellDao.availableCantrips(id);
+    }
     @PutMapping("/spells/usable/{id}")
     public void changeUsable(@RequestBody @PathVariable int id){
         spellDao.changeUsable(id);
+    }
+    @PutMapping("/spells/available/{id}")
+    public void changeAvailable(@RequestBody @PathVariable int id){
+        spellDao.changeAvailable(id);
     }
     @PostMapping("/spells/{id}")
     public Spell addSpell(@RequestBody Spell spell){

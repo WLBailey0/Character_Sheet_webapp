@@ -46,12 +46,12 @@ public class JdbcPersonDao implements PersonDao {
 
     @Override
     public Person createPerson(Person person) {
-        String sql = "insert into person(person_id, name, health, initiative, speed, hit_dice, " +
+        String sql = "insert into person(person_id, name, health, base_health, initiative, speed, hit_dice, " +
                 "armor_class, proficiency, char_class, level) " +
-                "values(?,?,?,?,?,?,?,?,?,?)";
-        Integer id = jdbcTemplate.queryForObject(sql, Integer.class, person.getCharId(), person.getName(),
-                person.getHealth(), person.getInititave(), person.getSpeed(), person.getHitDice(),
-                person.getArmorClass(), person.getProficiency(), person.getCharClass(),
+                "values(?,?,?,?,?,?,?,?,?,?,?)";
+        Integer id = jdbcTemplate.queryForObject(sql, Integer.class, person.getUserId(), person.getName(),
+                person.getHealth(), person.getHealth(), person.getInititave(), person.getSpeed(),
+                person.getHitDice(), person.getArmorClass(), person.getProficiency(), person.getCharClass(),
                 person.getLevel());
         return getCharacter(id);
     }
@@ -62,12 +62,28 @@ public class JdbcPersonDao implements PersonDao {
         jdbcTemplate.update(sql, id);
     }
 
+    @Override
+    public void healthUp(int id) {
+        Person person = getCharacter(id);
+        String sql = "update person set health = ? where char_id = ?";
+        jdbcTemplate.update(sql, person.getHealth() + 1, id);
+
+    }
+
+    @Override
+    public void healthDown(int id) {
+        Person person = getCharacter(id);
+        String sql = "update person set health = ? where char_id = ?";
+        jdbcTemplate.update(sql, person.getHealth() - 1, id);
+    }
+
     public Person mapRowToPerson(SqlRowSet results) {
         Person person = new Person();
         person.setCharId(results.getInt("char_id"));
         person.setUserId(results.getInt("person_id"));
         person.setName(results.getString("name"));
         person.setHealth(results.getInt("health"));
+        person.setBaseHealth(results.getInt("base_health"));
         person.setInititave(results.getInt("initiative"));
         person.setSpeed(results.getInt("speed"));
         person.setHitDice(results.getString("hit_dice"));
