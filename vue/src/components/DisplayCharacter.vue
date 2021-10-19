@@ -1,13 +1,17 @@
 <template>
-  <div>
+  <div >
     <div class="top">
-      <h2>{{character.name}}</h2>
-      <h2>{{character.charClass}} {{character.level}}</h2>
+      <h1>{{character.name}}</h1>
+      <h1>{{character.charClass}} {{character.level}}</h1>
+    </div>
+    <div class="actions">
+      <button class="long">Long Rest</button>
+      <button class="lvlUp">Level Up</button>
     </div>
     <div class="main-attr-top">
-      <h3>Inititave</h3>
-      <h3>Health</h3>
-      <h3>Speed</h3>
+      <h2>Inititave</h2>
+      <h2>Health</h2>
+      <h2>Speed</h2>
     </div>
     <div class="main-attr-top">
       <h4>{{character.inititave}}</h4>
@@ -28,8 +32,9 @@
       <h4>{{spell.spellName}}</h4>
       <h4>{{spell.spellDice}}</h4>
       <h4>lvl: {{spell.spellLevel}} 
-        <input type="checkbox" name="checked" id="checked" :checked="spell.usable" v-on:click="check(spell.spellId)" v-model="spell.usable">
+        
       </h4>
+      <input type="checkbox" name="checked" id="checked" :checked="spell.usable" v-on:click="check(spell.spellId)" v-model="spell.usable">
       
     </div>
   </div>
@@ -46,6 +51,7 @@ export default {
       },
       cantrips: [],
       spells: [],
+      loading: true,
     }
   },
   created(){
@@ -56,7 +62,7 @@ export default {
     spellService.getAvailableSpells(this.character.id).then(result => {
       this.spells = result.data;
     });
-    spellService.getAvailableCantrips(this.character.id).then(result => {
+    spellService.getCantrips(this.character.id).then(result => {
       this.cantrips = result.data;
     });
 
@@ -87,6 +93,14 @@ export default {
   direction: row;
   justify-content: space-around;
 }
+.actions{
+  display: flex;
+  justify-content: space-evenly;
+}
+button{
+  background-color: #f2cc8f;
+  font-weight: strong;
+}
 .main-attr-top{
   display: flex;
   direction: row;
@@ -99,18 +113,22 @@ export default {
   width: 200px;
   height: 75px;
   margin: auto;
+  background-color: #e07a5f;
 }
 .spells > h4{
-  padding: 10px;
+  padding: 5px;
 }
 .spell{
   text-align: center;
 }
 .used{
-  background: red;
+  background: #3d405b;;
 }
 .btn{
   display: flex;
   justify-content: center;
+}
+input{
+  margin-top: 35px;
 }
 </style>

@@ -1,11 +1,11 @@
 <template>
   <div class="home">
     <h1> Create or Select character</h1>
-    <router-link v-bind:to="{
+    <router-link class="link" v-bind:to="{
       name: 'createCharacter',
       params: {id: this.$store.state.user.id}}">Create Character</router-link><br><br>
     <div v-for="character in characters" :key="character.id">
-      <router-link v-bind:to="{
+      <router-link class="link" v-bind:to="{
         name: 'displayCharacter',
         params: {id: character.charId}}">
         <strong>{{character.name}}</strong> {{character.charClass}} {{character.level}}
@@ -36,3 +36,14 @@ export default {
   }
 };
 </script>
+<style>
+body{
+  background-color: #81b29a;
+}
+.link{
+  color: black;
+;
+
+}
+
+</style>
