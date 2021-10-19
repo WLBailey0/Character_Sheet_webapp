@@ -16,4 +16,7 @@ export default{
     healthDown(id){
         return axios.put(`/character/down/${id}`);
     },
+    characterLongRest(id){
+        return axios.put(`/character/long-rest/${id}`);
+    }
 }

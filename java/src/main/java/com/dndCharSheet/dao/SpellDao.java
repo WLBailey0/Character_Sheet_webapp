@@ -25,6 +25,8 @@ public interface SpellDao {
 
     void changeAvailable(int id);
 
+    void longRestSpells(int id);
+
 
 
 

@@ -21,20 +21,21 @@
             <label for="cantrip">Cantrip: </label>
             <input type="checkbox" name="cantrip" id="cantrip" v-model="spell.cantrip">
 
-            <input type="submit" value="submit" v-on:submit.prevent="createSpell">
+            <input type="submit" value="submit" id="submit" v-on:submit.prevent="createSpell">
         </form>
       </div>
-      <h3>Known Cantrips:</h3>
-      <div v-for="cantrip in cantrips" :key="cantrip.id">
+      <h3 class="title">Known Cantrips:</h3>
+      <div v-for="cantrip in cantrips" :key="cantrip.id" class="spell">
           <h4>{{cantrip.spellName}} 
                <input type="checkbox" name="checked" id="checked" :checked="spell.available" v-on:click="makeAvailable(cantrip.spellId)" v-model="cantrip.available">
           </h4>
           
       </div>
-      <h3>Known Spells: </h3>
-        <div v-for="spell in spells" :key="spell.id">
+      <h3 class="title">Known Spells: </h3>
+        <div v-for="spell in spells" :key="spell.id" class="spell">
             <h4>{{spell.spellName}} | level: {{spell.spellLevel}} 
-                <input type="checkbox" name="checked" id="checked" :checked="spell.available" v-on:click="makeAvailable(spell.spellId)" v-model="spell.available"></h4>
+                <input type="checkbox" name="checked" id="checked" :checked="spell.available" v-on:click="makeAvailable(spell.spellId)" v-model="spell.available">
+            </h4>
 
         </div>
       <div>
@@ -92,7 +93,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .form{
     display: flex;
 }
@@ -106,5 +107,21 @@ label{
 input {
   display: inline-block;
   float: left;
+  margin-top: 0;
+}
+.form > #submit{
+  justify-content: center;
+}
+.spell{
+  display: flex;
+  justify-content: center;
+  border: 1px solid black;
+  width: 200px;
+  height: 75px;
+  margin: auto;
+  background-color: #e07a5f;
+}
+.title{
+  text-align: center;
 }
 </style>

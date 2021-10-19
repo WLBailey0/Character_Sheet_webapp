@@ -21,5 +21,8 @@ export default{
     },
     changeAvailable(id){
         return axios.put(`/spells/available/${id}`);
-    }
+    },
+    spellLongRest(id){
+        return axios.put(`/spells/long-rest/${id}`);
+    },
 }

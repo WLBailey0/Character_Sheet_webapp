@@ -48,4 +48,8 @@ public class SpellController {
     public void delete(@PathVariable int id){
         spellDao.deleteSpell(id);
     }
+    @PutMapping("/spells/long-rest/{id}")
+    public void spellLongRest(@RequestBody @PathVariable int id){
+        spellDao.longRestSpells(id);
+    }
 }

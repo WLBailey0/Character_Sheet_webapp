@@ -5,7 +5,7 @@
       <h1>{{character.charClass}} {{character.level}}</h1>
     </div>
     <div class="actions">
-      <button class="long">Long Rest</button>
+      <button class="long" v-on:click="longRest()">Long Rest</button>
       <button class="lvlUp">Level Up</button>
     </div>
     <div class="main-attr-top">
@@ -81,10 +81,18 @@ export default {
         this.character.health -= 1
       );
     },
+    longRest(){
+      characterService.characterLongRest(this.$route.params.id).then(
+        this.character.health = this.character.baseHealth
+      );
+      spellService.spellLongRest(this.$route.params.id).then(this.spells.forEach(spell => {
+        spell.usable = true;
+      }))
+      
+    },
   },
 }
-//<button v-on:click="check(spell.spellId)" v-bind="spell.usable">Use</button>
-// <input type="checkbox" name="checked" id="checked" :checked="spell.usable" v-on:checked="check(spell.spellId)" v-model="spell.usable">
+
 </script>
 
 <style>

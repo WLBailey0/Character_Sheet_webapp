@@ -108,6 +108,16 @@ public class JdbcSpellDao implements SpellDao{
         jdbcTemplate.update(sql, !spell.isAvailable(), id);
     }
 
+    @Override
+    public void longRestSpells(int id) {
+        List<Spell> spells = availiableSpells(id);
+
+        for(Spell spell : spells){
+            String sql = "update spells set is_usable = ? where spell_name = ?";
+            jdbcTemplate.update(sql, true, spell.getSpellName());
+        }
+    }
+
     private Spell mapSpellToRow(SqlRowSet results) {
         Spell spell = new Spell();
         spell.setSpellId(results.getInt("spell_id"));

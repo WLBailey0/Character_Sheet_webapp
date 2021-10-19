@@ -17,4 +17,6 @@ public interface PersonDao {
 
     void healthDown(int id);
 
+    void longRestCharacter(int id);
+
 }

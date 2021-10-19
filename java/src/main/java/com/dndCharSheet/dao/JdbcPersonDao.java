@@ -77,6 +77,13 @@ public class JdbcPersonDao implements PersonDao {
         jdbcTemplate.update(sql, person.getHealth() - 1, id);
     }
 
+    @Override
+    public void longRestCharacter(int id) {
+        Person person = getCharacter(id);
+        String sql = "update person set health = ? where char_id = ?";
+        jdbcTemplate.update(sql, person.getBaseHealth(), id);
+    }
+
     public Person mapRowToPerson(SqlRowSet results) {
         Person person = new Person();
         person.setCharId(results.getInt("char_id"));

@@ -68,6 +68,7 @@ export default {
 .form{
   display: flex;
   flex-direction: column;
+  align-content: center;
 
 }
 

@@ -46,4 +46,8 @@ public class PersonController {
     public void healthDown(@RequestBody @PathVariable int id){
         personDao.healthDown(id);
     }
+    @PutMapping("/character/long-rest/{id}")
+    public void charLongRest(@RequestBody @PathVariable int id){
+        personDao.longRestCharacter(id);
+    }
 }
