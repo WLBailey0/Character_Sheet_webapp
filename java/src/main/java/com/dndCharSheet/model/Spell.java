@@ -6,19 +6,19 @@ public class Spell {
     private String spellName;
     private int spellLevel;
     private String spellDice;
-    private int spellAmount;
+    private String spellText;
     private boolean isCantrip;
     private boolean isUsable;
     private boolean isAvailable;
 
 
-    public Spell(int spellId, int charId, String spellName,int spellLevel, String spellDice, int spellAmount, boolean isCantrip, boolean isUsable, boolean isAvailable) {
+    public Spell(int spellId, int charId, String spellName,int spellLevel, String spellDice, String spellText, boolean isCantrip, boolean isUsable, boolean isAvailable) {
         this.spellId = spellId;
         this.charId = charId;
         this.spellName = spellName;
         this.spellLevel = spellLevel;
         this.spellDice = spellDice;
-        this.spellAmount = spellAmount;
+        this.spellText = spellText;
         this.isCantrip = isCantrip;
         this.isUsable = isUsable;
     }
@@ -83,12 +83,12 @@ public class Spell {
         this.spellDice = spellDice;
     }
 
-    public int getSpellAmount() {
-        return spellAmount;
+    public String getSpellText() {
+        return spellText;
     }
 
-    public void setSpellAmount(int spellAmount) {
-        this.spellAmount = spellAmount;
+    public void setSpellText(String spellText) {
+        this.spellText = spellText;
     }
 
     public boolean isCantrip() {

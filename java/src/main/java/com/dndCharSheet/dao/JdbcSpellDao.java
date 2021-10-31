@@ -69,10 +69,7 @@ public class JdbcSpellDao implements SpellDao{
         }
         return spell;
     }
-    public void updateSpellAmount(Spell spell){
-        String sql = "update spells set spell_dice = ? where spell_id = ?";
-        jdbcTemplate.update(sql, spell.getSpellAmount(), spell.getSpellId());
-    }
+
 
     @Override
     public void deleteSpell(int id) {
@@ -83,10 +80,10 @@ public class JdbcSpellDao implements SpellDao{
     @Override
     public Spell createSpell(Spell spell) {
         String sql = "insert into spells(char_id, spell_name, spell_level, " +
-                "spell_dice, is_cantrip, is_usable, is_available) " +
-                "values(?,?,?,?,?,?,?) returning spell_id";
+                "spell_dice, spell_text, is_cantrip, is_usable, is_available) " +
+                "values(?,?,?,?,?,?,?,?) returning spell_id";
         Integer id = jdbcTemplate.queryForObject(sql, Integer.class,spell.getCharId(),
-                spell.getSpellName(), spell.getSpellLevel(), spell.getSpellDice(),
+                spell.getSpellName(), spell.getSpellLevel(), spell.getSpellDice(), spell.getSpellText(),
                 spell.isCantrip(), spell.isUsable(), false);
 
         return getSpell(id);
@@ -124,7 +121,6 @@ public class JdbcSpellDao implements SpellDao{
         spell.setCharId(results.getInt("char_id"));
         spell.setSpellName(results.getString("spell_name"));
         spell.setSpellLevel(results.getInt("spell_level"));
-        spell.setSpellAmount(results.getInt("spell_amount"));
         spell.setSpellDice(results.getString("spell_dice"));
         spell.setCantrip(results.getBoolean("is_cantrip"));
         spell.setUsable(results.getBoolean("is_usable"));

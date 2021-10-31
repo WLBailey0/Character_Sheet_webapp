@@ -58,7 +58,8 @@ export default {
   },
   methods:{
     create(){
-      characterService.createCharacter(this.$route.params.id, this.character).then(this.$router.push({name: 'home', params: {id: this.$route.params.id}}))
+      characterService.createCharacter(this.$route.params.id, this.character)
+      .then(this.$router.push({name: 'home', params: {id: this.$route.params.id}}))
     }
   }
 }

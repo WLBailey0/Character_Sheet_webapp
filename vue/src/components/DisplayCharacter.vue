@@ -3,6 +3,8 @@
     <div class="top">
       <h1>{{character.name}}</h1>
       <h1>{{character.charClass}} {{character.level}}</h1>
+      <!-- <router-link v-bind:to="{name: 'attributes', params:{id: character.charId}}">Attributes</router-link> -->
+      <!-- removing the attributes for now -->
     </div>
     <div class="actions">
       <button class="long" v-on:click="longRest()">Long Rest</button>
@@ -43,6 +45,7 @@
 <script>
 import characterService from '../services/CharacterService';
 import spellService from '../services/SpellService';
+
 export default {
   data(){
     return{

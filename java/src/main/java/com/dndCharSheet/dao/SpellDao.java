@@ -15,7 +15,6 @@ public interface SpellDao {
 
     Spell getSpell(int id);
 
-    void updateSpellAmount(Spell spell);
 
     void deleteSpell(int id);
 

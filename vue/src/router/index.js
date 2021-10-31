@@ -8,6 +8,8 @@ import store from '../store/index'
 import DisplayCharacter from '../views/Character.vue' 
 import CreateCharacter from '../views/Create.vue'
 import Spellbook from '../views/Spellbook.vue'
+import Attributes from '../views/Attributes.vue'
+
 
 Vue.use(Router)
 
@@ -77,7 +79,15 @@ const router = new Router({
       name: "spellbook",
       component: Spellbook,
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+      }
+    },
+    {
+      path: "/attributes/:id",
+      name: "attributes",
+      component: Attributes,
+      meta:{
+        requiresAuth: true,
       }
     },
   ]
