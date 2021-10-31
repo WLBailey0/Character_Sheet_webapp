@@ -33,7 +33,7 @@ create table spells
         spell_name varchar(255),
         spell_level int,
         spell_dice varchar(255),
-        spell_amount int,
+        spell_text text,
         is_cantrip boolean,
         is_usable boolean,
         is_available boolean,
@@ -60,6 +60,7 @@ create table weapons
         constraint pk_weap_id primary key (weapon_id),
         constraint fk_char_weap foreign key (char_id) references person (person_id)
 );
+
 
         
 commit transaction;
